@@ -38,6 +38,18 @@ const styles = StyleSheet.create({
         height: dimension,
         borderRadius: SIZES.small / 1.25,
       }),
+    mapContainer:{
+        flex: 0.75,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: COLORS.lightWhite,
+        height: 500
+    },
+    map: {
+        flex:0,
+        width: 350,
+        height: 500,
+      },
 });
 
 export default styles;

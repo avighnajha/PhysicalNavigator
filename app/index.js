@@ -10,9 +10,8 @@ import MapModal from './mapModal';
 
 const Home =()=>{
     const router = useRouter();
-    const [modalVisible, setModalVisible] = useState(false);
     const [mapModalVisible, setMapModalVisible] = useState(false);
-
+    const [startConfirmed, setStartConfirmed] = useState(false);
     return (
         <SafeAreaView style={{flex: 1, backgroundColor:COLORS.lightWhite}}>
             <Stack.Screen 
@@ -22,8 +21,8 @@ const Home =()=>{
                     },
                     headerShadowVisible: false,
                     headerRight: () => (
-                        <TouchableOpacity style={styles.btnContainerHead} onPress = {()=>{setModalVisible(true)}}>
-                            <Image source={icons.chevronLeft} resizeMode="cover"
+                        <TouchableOpacity style={styles.btnContainerHead} onPress = {()=>{}}>
+                            <Image source={images.profile} resizeMode="cover"
                             style={styles.btnImg("100%")}
                             onError={(error) => console.log(error)}
                             />
@@ -32,43 +31,38 @@ const Home =()=>{
                     headerTitle: ""
                 }}
             />
-            <ScrollView showsVerticalScrollIndicator={false} style={{flex:1}}>
+            {/* <ScrollView showsVerticalScrollIndicator={false} style={{flex:1}}>
                 <View style={{flex:0,padding: SIZES.xSmall, alignItems: "center", justifyContent: "center"}}>
                     <TouchableOpacity 
                     style={styles.btnContainer}
-                    onPress={() => {setModalVisible(true)}}
+                    onPress={() => {setMapModalVisible(true)}}
                     >
-                        <Text style={{fontSize: 20}}>Start Journey</Text>
+                        <Text style={{fontSize: 20}}>Mark start</Text>
                     </TouchableOpacity>
-                    <Modal 
-                        animationType="none"
-                        transparent={true}
-                        visible={modalVisible}
-                        onRequestClose={()=>{setModalVisible(!modalVisible)}}
-                        >
-                            <View style={{flex:0.25, padding: SIZES.medium, justifyContent: "center", alignItems: "center"}}>
-                                <TouchableOpacity style={styles.btn2} onPress={()=>setMapModalVisible(true)}>
-                                    <Text style={{fontSize: 20}}>Use Current Location</Text>
-                                </TouchableOpacity>
-                                <MapModal
-                                    visible={mapModalVisible}
-                                    onClose={()=>setMapModalVisible(false)}
-                                />
-                                <TouchableOpacity style={styles.btn2}>
-                                    <Text style={{fontSize: 20}}>Select location</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.btn2} onPress={() => setModalVisible(false)}>
-                                <Text style={{fontSize: 20}}>Close</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </Modal>
+                    <MapModal
+                    visible={mapModalVisible}
+                    onClose={()=>setMapModalVisible(false)}
+                    setStartConfirmed={setStartConfirmed}
+                    />
                 </View>
                 <View style={{flex:1, padding: SIZES.xLarge, justifyContent: "center", alignItems: "center"}}>
                     <TouchableOpacity style={styles.btnContainer}>
-                        <Text style={{fontSize: 20}}>End Journey</Text>
+                        <Text style={{fontSize: 20}}>Mark end</Text>
                     </TouchableOpacity>
                 </View>
+            </ScrollView> */}
+            <ScrollView showsVerticalScrollIndicator={false} style={{flex:1}}>
+                <View style={{flex:0,padding: SIZES.xSmall, alignItems: "center", justifyContent: "center"}}>
+                    {startConfirmed? (<Text>Where would you like to end?</Text>) : (<Text>Where would you like to Start?</Text>)}
+                    <MapModal
+                    visible={true}
+                    onClose={()=>setMapModalVisible(false)}
+                    setStartConfirmed={setStartConfirmed}
+                    />
+                </View>
+                
             </ScrollView>
+            
         </SafeAreaView>
     )
 }
