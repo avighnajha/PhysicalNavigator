@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     btn2: {
         width: 200,
         height: 50,
-        backgroundColor: COLORS.gray2,
+        backgroundColor: COLORS.gray,
         borderRadius: SIZES.small / 2,
         justifyContent: "center",
         alignItems: "center",

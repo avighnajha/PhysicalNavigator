@@ -1,14 +1,18 @@
 import { useRouteInfo, useRouter } from 'expo-router/build/hooks';
 import {useState} from 'react';
-import {View, ScrollView, SafeAreaView, Text, TouchableOpacity, Image, Modal} from 'react-native';
+import {View, ScrollView, SafeAreaView, Text, TouchableOpacity, Image, Modal, TurboModuleRegistry} from 'react-native';
+import MapView from 'react-native-maps';
 import {Stack} from 'expo-router';
 import styles from '../styles.style';
 import {COLORS, icons, images, SIZES} from "../constants";
+import MapModal from './mapModal';
 
 
 const Home =()=>{
     const router = useRouter();
     const [modalVisible, setModalVisible] = useState(false);
+    const [mapModalVisible, setMapModalVisible] = useState(false);
+
     return (
         <SafeAreaView style={{flex: 1, backgroundColor:COLORS.lightWhite}}>
             <Stack.Screen 
@@ -43,9 +47,13 @@ const Home =()=>{
                         onRequestClose={()=>{setModalVisible(!modalVisible)}}
                         >
                             <View style={{flex:0.25, padding: SIZES.medium, justifyContent: "center", alignItems: "center"}}>
-                                <TouchableOpacity style={styles.btn2}>
+                                <TouchableOpacity style={styles.btn2} onPress={()=>setMapModalVisible(true)}>
                                     <Text style={{fontSize: 20}}>Use Current Location</Text>
                                 </TouchableOpacity>
+                                <MapModal
+                                    visible={mapModalVisible}
+                                    onClose={()=>setMapModalVisible(false)}
+                                />
                                 <TouchableOpacity style={styles.btn2}>
                                     <Text style={{fontSize: 20}}>Select location</Text>
                                 </TouchableOpacity>
