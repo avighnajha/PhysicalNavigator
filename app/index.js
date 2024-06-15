@@ -10,8 +10,12 @@ import MapModal from './mapModal';
 
 const Home =()=>{
     const router = useRouter();
-    const [mapModalVisible, setMapModalVisible] = useState(false);
     const [startConfirmed, setStartConfirmed] = useState(false);
+    const [startLocation, setStartLocation] = useState(null);
+
+    const [endConfirmed, setEndConfirmed] = useState(false);
+    const [endLocation, setEndLocation] = useState(null);
+
     return (
         <SafeAreaView style={{flex: 1, backgroundColor:COLORS.lightWhite}}>
             <Stack.Screen 
@@ -31,33 +35,18 @@ const Home =()=>{
                     headerTitle: ""
                 }}
             />
-            {/* <ScrollView showsVerticalScrollIndicator={false} style={{flex:1}}>
-                <View style={{flex:0,padding: SIZES.xSmall, alignItems: "center", justifyContent: "center"}}>
-                    <TouchableOpacity 
-                    style={styles.btnContainer}
-                    onPress={() => {setMapModalVisible(true)}}
-                    >
-                        <Text style={{fontSize: 20}}>Mark start</Text>
-                    </TouchableOpacity>
-                    <MapModal
-                    visible={mapModalVisible}
-                    onClose={()=>setMapModalVisible(false)}
-                    setStartConfirmed={setStartConfirmed}
-                    />
-                </View>
-                <View style={{flex:1, padding: SIZES.xLarge, justifyContent: "center", alignItems: "center"}}>
-                    <TouchableOpacity style={styles.btnContainer}>
-                        <Text style={{fontSize: 20}}>Mark end</Text>
-                    </TouchableOpacity>
-                </View>
-            </ScrollView> */}
+        
             <ScrollView showsVerticalScrollIndicator={false} style={{flex:1}}>
-                <View style={{flex:0,padding: SIZES.xSmall, alignItems: "center", justifyContent: "center"}}>
-                    {startConfirmed? (<Text>Where would you like to end?</Text>) : (<Text>Where would you like to Start?</Text>)}
+                <View style={{flex:1,padding: SIZES.xSmall, alignItems: "center", justifyContent: "center"}}>
+                    {startConfirmed? (<Text style= {styles.wlcTxt}>Where would you like to end?</Text>) : (<Text style= {styles.wlcTxt}>Where would you like to Start?</Text>)}
                     <MapModal
                     visible={true}
-                    onClose={()=>setMapModalVisible(false)}
                     setStartConfirmed={setStartConfirmed}
+                    setStartLocation={setStartLocation}
+                    startLocation={startLocation}
+                    setEndConfirmed={setEndConfirmed}
+                    setEndLocation={setEndLocation}
+                    endLocation={endLocation}
                     />
                 </View>
                 

@@ -3,6 +3,11 @@ import { StyleSheet } from "react-native";
 import { COLORS, FONT, SHADOWS, SIZES } from "./constants";
 
 const styles = StyleSheet.create({
+  wlcTxt:{
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: COLORS.secondary,
+  },
     container: {
         flex: 1,
         justifyContent: 'center',
