@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, TouchableOpacity, Text,SafeAreaView, PermissionsAndroid, View,ActivityIndicator, Image } from 'react-native';
+import { Modal, TouchableOpacity, Text,SafeAreaView, PermissionsAndroid, View,ActivityIndicator, Image, Vibration } from 'react-native';
 import MapView, {Callout, Marker} from 'react-native-maps';
 import {COLORS, icons, images, SIZES} from "../constants";
 import styles from '../styles.style';
@@ -7,12 +7,14 @@ import styles from '../styles.style';
 import * as Location from 'expo-location';
 import MapViewDirections from 'react-native-maps-directions';
 import getDirections from './getDirections';
-import {useLocation} from './watching';
+import useLocation from './watching';
+import GOOGLE_MAPS_API_KEY from './api_key';
 
-const MapModal=({visible, setStartConfirmed, setStartLocation, startLocation, setEndConfirmed, setEndLocation, endLocation})=>{
+const MapModal=({visible, setStartConfirmed, setStartLocation, startLocation, setEndConfirmed, setEndLocation, endLocation, walking, setWalking})=>{
     const [location, setLocation] = useState(null);
     const [loc_title, setLocTitle] = useState("Current Location");
     const [isLoading, setIsLoading] = useState(true);
+    const [directions, setDirections] = useState(null);
 
     const getCurLocation = async () => {
         let { status } = await Location.requestForegroundPermissionsAsync();
@@ -40,6 +42,44 @@ const MapModal=({visible, setStartConfirmed, setStartLocation, startLocation, se
         console.log("End Location: ", endLocation);
     }, [endLocation]); // startLocation is a dependency
 
+    
+    //Watching location
+    useEffect(() => {
+        console.log("In useEffect for walking")
+        let locationSubscription;
+
+        const startWatching = async () => {
+            console.log("Running startWatching ...")
+            try {
+                const {granted} = await Location.requestForegroundPermissionsAsync();
+                if (!granted) {
+                    throw new Error('Location permission not granted');
+                }
+                locationSubscription = await Location.watchPositionAsync({
+                    accuracy: Location.Accuracy.BestForNavigation,
+                    timeInterval: 10000,
+                    distanceInterval: 10
+                }, (location) => {
+                    setLocation(location.coords);
+                    if (walking) {
+                        setStartLocation(location.coords);
+                    }
+                    getDirections(location.coords, endLocation).then(setDirections);
+                });
+            }
+            catch (e) {
+                console.error(e);
+            }
+        }
+        startWatching();
+
+        return () => {
+            if (locationSubscription) {
+                locationSubscription.remove();
+            }
+        }
+    }, [walking])
+
     const handleConfirmStart = () => {
         setStartConfirmed(true);
         setLocation(null)
@@ -58,6 +98,15 @@ const MapModal=({visible, setStartConfirmed, setStartLocation, startLocation, se
         setEndLocation(location);
     }
 
+    const handleWalk = ()=>{
+        setWalking(true);
+        console.log("Before walking")
+        // location=useLocation();
+        // console.log("Walking: ", location);
+        // getDirections(location.coords, endLocation).then(setDirections);
+    }
+
+
     if (isLoading) {
         return <ActivityIndicator />;
     }
@@ -75,7 +124,7 @@ const MapModal=({visible, setStartConfirmed, setStartLocation, startLocation, se
                             }}
                             onPress={(e) => {setLocation(e.nativeEvent.coordinate), setLocTitle("Selected Location")}}
                     >
-                        {location && (
+                        {!walking && location && (
                             <Marker 
                         coordinate={{latitude: location.latitude, longitude: location.longitude}}
                         title={loc_title}
@@ -84,7 +133,7 @@ const MapModal=({visible, setStartConfirmed, setStartLocation, startLocation, se
 
                         {/* Adding permanent marker for start location */}
 
-                        {startLocation && (
+                        {!walking && startLocation && (
                             <Marker
                                 coordinate={{latitude: startLocation.latitude, longitude: startLocation.longitude}}
                                 title={loc_title}
@@ -92,6 +141,16 @@ const MapModal=({visible, setStartConfirmed, setStartLocation, startLocation, se
                                 <View style={styles.container}>
                                     <Text style= {{backgroundColor: COLORS.lightWhite}}>Start Location</Text>
                                     <Image source={icons.loc_marker} style={{height: 20, width:20}}/>
+                                </View>
+                        </Marker>)}
+                        {walking && startLocation && (
+                            <Marker
+                                coordinate={{latitude: startLocation.latitude, longitude: startLocation.longitude}}
+                                title={loc_title}
+                        >
+                                <View style={styles.container}>
+                                    <Text style= {{backgroundColor: COLORS.lightWhite}}>Current Location</Text>
+                                    <Image source={icons.walk} style={{height: 20, width:20}}/>
                                 </View>
                         </Marker>)}
                         {endLocation && (
@@ -109,9 +168,10 @@ const MapModal=({visible, setStartConfirmed, setStartLocation, startLocation, se
                             <MapViewDirections
                             origin={startLocation}
                             destination={endLocation}
-                            apikey={"AIzaSyCHyKKAuKFd_17AiDIgAk9p07Yi6-2DJMc"} 
+                            apikey={GOOGLE_MAPS_API_KEY} 
                             strokeWidth={3}
-                            strokeColor="hotpink"
+                            strokeColor="red"
+                            mode="WALKING"
                             />
                         )}
                     </MapView>
@@ -126,9 +186,13 @@ const MapModal=({visible, setStartConfirmed, setStartLocation, startLocation, se
                     handleEndLocation()}}>
                     <Text style={{fontSize: 20}}>Confirm End</Text>
                 </TouchableOpacity>}
-                {endLocation && <TouchableOpacity style={styles.btnContainer} onPress={()=>{}}>
+                {endLocation && !walking && <TouchableOpacity style={styles.btnContainer} onPress={()=>{
+                    //getDirections(startLocation, endLocation)
+                    handleWalk()
+                    }}>
                     <Text style={{fontSize: 20}}>Begin walk</Text>
                 </TouchableOpacity>}
+                
             </SafeAreaView>
         </View>
     )
