@@ -16,6 +16,8 @@ const Home =()=>{
     const [endConfirmed, setEndConfirmed] = useState(false);
     const [endLocation, setEndLocation] = useState(null);
 
+    const [walking, setWalking] = useState(false);
+
     return (
         <SafeAreaView style={{flex: 1, backgroundColor:COLORS.lightWhite}}>
             <Stack.Screen 
@@ -47,6 +49,8 @@ const Home =()=>{
                     setEndConfirmed={setEndConfirmed}
                     setEndLocation={setEndLocation}
                     endLocation={endLocation}
+                    walking={walking}
+                    setWalking={setWalking}
                     />
                 </View>
                 

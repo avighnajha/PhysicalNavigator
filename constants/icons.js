@@ -9,6 +9,7 @@ import location from "../assets/icons/location.png";
 import chevronLeft from '../assets/icons/chevron-left.png'
 import chevronRight from '../assets/icons/chevron-right.png'
 import loc_marker from '../assets/icons/loc_marker.png'
+import walk from '../assets/icons/walk.png'
 
 export default {
   heart,
@@ -21,5 +22,6 @@ export default {
   location,
   chevronLeft,
   chevronRight,
-  loc_marker
+  loc_marker,
+  walk
 };
