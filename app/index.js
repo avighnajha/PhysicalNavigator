@@ -35,7 +35,7 @@ const Home =()=>{
                             />
                         </TouchableOpacity>
                     ),
-                    headerTitle: ""
+                    headerTitle: "JustWalk"
                 }}
             />
         

@@ -59,6 +59,23 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold',
         color: COLORS.secondary,
+    },
+    inputContainer:{
+      backgroundColor: COLORS.lightWhite,
+      width: "75%",
+      height: 50,
+
+      borderColor: "#e8e8e8",
+      borderWidth: 1,
+      borderRadius: 10,
+
+      paddingHorizontal: 10,
+      marginVertical: 5,
+    },
+    input:{
+      fontSize:20,
+      justifyContent: "center",
+      alignItems: "center",
     }
 });
 
