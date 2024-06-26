@@ -55,6 +55,11 @@ const styles = StyleSheet.create({
         width: 350,
         height: 500,
       },
+    SignInText: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        color: COLORS.secondary,
+    }
 });
 
 export default styles;
