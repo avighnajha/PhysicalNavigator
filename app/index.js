@@ -5,7 +5,8 @@ import MapView from 'react-native-maps';
 import {Stack} from 'expo-router';
 import styles from '../styles.style';
 import {COLORS, icons, images, SIZES} from "../constants";
-import MapModal from './mapModal';
+import MapModal from '../components/mapModal';
+import SignInScreen from './SignInScreen';
 
 
 const Home =()=>{
@@ -27,7 +28,7 @@ const Home =()=>{
                     },
                     headerShadowVisible: false,
                     headerRight: () => (
-                        <TouchableOpacity style={styles.btnContainerHead} onPress = {()=>{}}>
+                        <TouchableOpacity style={styles.btnContainerHead} onPress = {()=>router.push("SignInScreen")}>
                             <Image source={images.profile} resizeMode="cover"
                             style={styles.btnImg("100%")}
                             onError={(error) => console.log(error)}
