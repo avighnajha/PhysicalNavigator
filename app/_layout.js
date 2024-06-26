@@ -6,7 +6,7 @@ const Layout = () => {
     return(
     <Stack>
             <Stack.Screen name="index" path="/"/>
-            <Stack.Screen name="SignInScreen" path="/SignInScreen"/>
+            <Stack.Screen name="SignInScreen" path="/SignIn" options={{title:"JustWalk"}}/>
     </Stack>
     );
 };
