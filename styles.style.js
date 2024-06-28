@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     },
     inputContainer:{
       backgroundColor: COLORS.lightWhite,
-      width: "75%",
+      width: "100%",
       height: 50,
 
       borderColor: "#e8e8e8",
@@ -76,6 +76,41 @@ const styles = StyleSheet.create({
       fontSize:20,
       justifyContent: "center",
       alignItems: "center",
+    },
+    SignInRoot:{
+      alignItems: "center",
+      justifyContent: "center",
+      padding: 20
+    },
+    profileContainer:{
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 20,
+    },
+    profilePic:{
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        
+
+    },
+    emailText:{
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: COLORS.secondary,
+        margin:10
+    },
+    myWalksContainer:{
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    myWalksTitle:{
+        fontSize: 30,
+        fontWeight: 'bold',
+        color: COLORS.secondary,
+    },
+    Logout:{
+      width: "100%"
     }
 });
 
