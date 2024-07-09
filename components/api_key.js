@@ -1,0 +1,3 @@
+const GOOGLE_MAPS_API_KEY =  "REMOVED_CREDENTIAL"
+
+export default GOOGLE_MAPS_API_KEY;
