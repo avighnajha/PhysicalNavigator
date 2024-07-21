@@ -15,19 +15,38 @@ const SignUpScreen = () => {
     const [password_repeat, setPassword_repeat] = useState("");
     const [email, setEmail] = useState("");
     const [registered, setRegistered] = useState(false);
+    const [message, setMessage] = useState('');
 
 
-    const onSignUpPressed = () => {
-        
-        createUserWithEmailAndPassword(auth, email, password)
-        .then(
-            userCredentials => {
-                const user = userCredentials.user;
-                console.log(user.email);
-                setRegistered(true);
+    const onSignUpPressed = async () => {
+        console.log("SIGNING UP")
+        try {
+            const response = await fetch("http://localhost:8080/api/users/signup", {
+                method: 'POST',
+                headers: {'Content-type': 'Application/json'},
+                body: JSON.stringify({username, email, password})
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setMessage('SignUp successful')
+            } else {
+                const errorData = await response.json();
+                setMessage(`Error: ${errorData.message}`)
             }
-        )
-        .catch(e =>alert(e.message))
+        }
+        catch (error) {
+            setMessage(`Error: ${error.message}`)
+        }
+        // createUserWithEmailAndPassword(auth, email, password)
+        // .then(
+        //     userCredentials => {
+        //         const user = userCredentials.user;
+        //         console.log(user.email);
+        //         setRegistered(true);
+        //     }
+        // )
+        // .catch(e =>alert(e.message))
     }
 
     useEffect(() => {
@@ -46,6 +65,7 @@ const SignUpScreen = () => {
             <CustomInput placeholder={"Password"} value={password} setValue={setPassword} secureTextEntry={true}/>
             <CustomInput placeholder={"Re-enter Password"} value={password_repeat} setValue={setPassword_repeat} secureTextEntry={true}/>
             <CustomButton text={"Register"} onPress={onSignUpPressed}/>
+            {message ? <Text style={styles.message}>{message}</Text> : null}
         </View>
     );
 }

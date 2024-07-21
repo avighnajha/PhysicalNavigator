@@ -1,0 +1,8 @@
+com\navigatorbackend\service\UserService.class
+com\navigatorbackend\service\WalkService.class
+com\navigatorbackend\model\UserModel.class
+com\navigatorbackend\NavigatorBackendApplication.class
+com\navigatorbackend\repository\WalkRepository.class
+com\navigatorbackend\controller\UserController.class
+com\navigatorbackend\model\Walk.class
+com\navigatorbackend\repository\UserRepository.class
