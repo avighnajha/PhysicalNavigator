@@ -1,5 +1,8 @@
 C:\Users\avigh\Desktop\Navigator app\PhysicalNav\src\main\java\com\navigatorbackend\controller\UserController.java
 C:\Users\avigh\Desktop\Navigator app\PhysicalNav\src\main\java\com\navigatorbackend\model\UserModel.java
+C:\Users\avigh\Desktop\Navigator app\PhysicalNav\src\main\java\com\navigatorbackend\model\Walk.java
 C:\Users\avigh\Desktop\Navigator app\PhysicalNav\src\main\java\com\navigatorbackend\NavigatorBackendApplication.java
 C:\Users\avigh\Desktop\Navigator app\PhysicalNav\src\main\java\com\navigatorbackend\repository\UserRepository.java
+C:\Users\avigh\Desktop\Navigator app\PhysicalNav\src\main\java\com\navigatorbackend\repository\WalkRepository.java
 C:\Users\avigh\Desktop\Navigator app\PhysicalNav\src\main\java\com\navigatorbackend\service\UserService.java
+C:\Users\avigh\Desktop\Navigator app\PhysicalNav\src\main\java\com\navigatorbackend\service\WalkService.java

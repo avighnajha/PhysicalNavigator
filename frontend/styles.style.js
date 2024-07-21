@@ -111,7 +111,11 @@ const styles = StyleSheet.create({
     },
     Logout:{
       width: "100%"
-    }
+    },
+    message: {
+        marginTop: 20,
+        fontSize: 16,
+    },
 });
 
 export default styles;
