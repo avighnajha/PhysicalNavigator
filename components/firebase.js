@@ -3,7 +3,7 @@ import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onA
 
 
 const firebaseConfig = {
-    apiKey: "REMOVED_CREDENTIAL",
+    apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
     authDomain: "physicalnavigator-9701c.firebaseapp.com",
     projectId: "physicalnavigator-9701c",
     storageBucket: "physicalnavigator-9701c.appspot.com",
