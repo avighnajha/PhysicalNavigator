@@ -16,3 +16,9 @@ web-build/
 #API key
 
 app/api_key.js
+# Local credentials and provider configuration
+.env
+.env.*
+*.env
+!.env.example
+!**/.env.example
